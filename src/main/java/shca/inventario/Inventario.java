@@ -1,5 +1,6 @@
-package inventario;
+package shca.inventario;
 
+import inventario.Ventana_Principal;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.Month;

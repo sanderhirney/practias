@@ -147,10 +147,6 @@ DefaultTableModel modelo;
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
-        dateChooserDialog1 = new datechooser.beans.DateChooserDialog();
-        dateChooserDialog2 = new datechooser.beans.DateChooserDialog();
-        dateChooserDialog3 = new datechooser.beans.DateChooserDialog();
-        dateChooserDialog4 = new datechooser.beans.DateChooserDialog();
         jDialog1 = new javax.swing.JDialog();
         Etiq_encabezado = new javax.swing.JLabel();
         Separador1 = new javax.swing.JSeparator();
@@ -992,10 +988,6 @@ DefaultTableModel modelo;
     private javax.swing.JSeparator Separador1;
     private javax.swing.JSeparator Separador2;
     private javax.swing.JTable Tabla_datos;
-    private datechooser.beans.DateChooserDialog dateChooserDialog1;
-    private datechooser.beans.DateChooserDialog dateChooserDialog2;
-    private datechooser.beans.DateChooserDialog dateChooserDialog3;
-    private datechooser.beans.DateChooserDialog dateChooserDialog4;
     private javax.swing.JDialog jDialog1;
     private javax.swing.JScrollPane jScrollPane2;
     private javax.swing.JSeparator jSeparator2;

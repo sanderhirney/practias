@@ -18,12 +18,13 @@ public class ConexionReporteF157 {
    
     List<Integer> codigoConcepto= new ArrayList<>();
     List<String> descripcionConcepto=new ArrayList<>();
-    List<Character> tipo=new ArrayList<>();
+    List<String> tipo=new ArrayList<>();
     List<Integer> codigo_medida=new ArrayList<>();
     List<String> descripcion_medida=new ArrayList<>();
     List<String> nombre_art=new ArrayList<>();
     List<Double> precioArticulos=new ArrayList<>();
     List<Double> cantidadArticulos=new ArrayList<>();
+    List<Integer> grupo=new ArrayList<>();
     int codigoDocumento;
     Date fecha;
    
@@ -163,9 +164,7 @@ public class ConexionReporteF157 {
      public Date getFecha(){
             return fecha;
      }
-     public String getDescripcionConcepto(){
-         return descripcionConcepto;
-     }
+
     
      public int getCodigoDocumento(){
          return codigoDocumento;
