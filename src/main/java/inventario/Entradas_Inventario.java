@@ -500,15 +500,12 @@ DefaultTableModel modelo;
         entrada.setPrecioArticulo(precio_art);
         entrada.setTotalOperacion(total_operacion);
         entrada.setConsecutivo(consecutivo);
+        entrada.documento();
         entrada.historial();
         
-        if(entrada.respuesta()==1)
+        if(entrada.respuesta()==1 && entrada.getResultFinal()==1)
         {
-            
-            entrada.documento();
-            
-              
-                //actualizo las existencias y costos con la tabla
+             //actualizo las existencias y costos con la tabla
       
                 operaciones.setCodigo(codigo_art);
                 operaciones.setDocumento(documento);

@@ -14,6 +14,7 @@ import javax.swing.JOptionPane;
 public class ConexionCrearEntrada {
     Connection conex;
     PreparedStatement consulta;
+   
     Conexion conectar= new Conexion();
     ResultSet ResultadoConsulta;
     int ejecutar;
@@ -104,7 +105,6 @@ public class ConexionCrearEntrada {
         ResultadoConsulta=consulta.executeQuery();
         if(ResultadoConsulta.next())
         {
-            System.out.println("Consecutivo si leyo ");
         consecutivo=ResultadoConsulta.getInt("consecutivo");
         consecutivo++;
         }else{
@@ -115,8 +115,8 @@ public class ConexionCrearEntrada {
     {
         JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de entrada de documento.\n Ventana Consecutivo del Documento \n Contacte al Desarrollador \n "+ex ,  "ADVERTENCIA GRAVE", JOptionPane.WARNING_MESSAGE);
     }
-        }//realiza el calculo de si la variable consecutivo vale 0 es decir si no es una modificacion
-        //ya que al ser modificacion el consecutivo debera conservarse
+   }//realiza el calculo de si la variable consecutivo vale 0 es decir si no es una modificacion
+    //ya que al ser modificacion el consecutivo debera conservarse
     try
         {
       
@@ -127,12 +127,10 @@ public class ConexionCrearEntrada {
         consulta.setInt(4, seccion);
         consulta.setFloat(5, cantidad);//cantidad total de articulo
         consulta.setInt(6, concepto_entrada);
-        consulta.setString(7, proveedor);
-        consulta.setDouble(8, total_operacion);
-        consulta.setInt(9, consecutivo);
+        consulta.setInt(7, consecutivo);
+        consulta.setString(8, proveedor);
+        consulta.setDouble(9, total_operacion);
         ejecutar=consulta.executeUpdate();
-        
-
         if( ejecutar>0 )
         {
            resultado_sig=1;
@@ -148,7 +146,7 @@ public class ConexionCrearEntrada {
     }//try
            catch(SQLException ex)
     {
-        JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de entrada de documento.\n Ventana Crear Entradas \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de entrada de documento.\n Ventana CrearDocumento de Entradas \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
     }
     }//consulta
    
@@ -158,7 +156,10 @@ public class ConexionCrearEntrada {
     {
         return resultado;
     }
-    
+    public int getResultFinal()
+    {
+        return resultado_sig;
+    }
     
     public void setCodigo(String id)
     {
@@ -209,10 +210,7 @@ public class ConexionCrearEntrada {
     {
         precio_articulo=recibido;
     }
-    public int getResultFinal()
-    {
-        return resultado_sig;
-    }
+    
     public void setTotalOperacion(Double recibido)
     {
         total_operacion=recibido;

@@ -122,11 +122,11 @@ public class Crear_Articulos extends javax.swing.JDialog {
                             .addComponent(Etiq_Grupos)
                             .addComponent(Etiq_Unid))
                         .addGap(38, 38, 38)
-                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Combo_Unidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Campo_Nombre)
                             .addComponent(Combo_Grupo, 0, 291, Short.MAX_VALUE))
-                        .addGap(0, 0, Short.MAX_VALUE)))
+                        .addGap(32, 32, 32)))
                 .addContainerGap())
         );
         layout.setVerticalGroup(
