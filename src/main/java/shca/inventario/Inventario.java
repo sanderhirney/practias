@@ -1,7 +1,9 @@
 package shca.inventario;
 
 import inventario.Ventana_Principal;
+import java.io.File;
 import java.io.IOException;
+import java.net.URL;
 import java.time.LocalDate;
 import java.time.Month;
 import java.util.logging.ConsoleHandler;
@@ -37,8 +39,7 @@ private final static Logger Log = Logger.getLogger("Inventario");
         consolaErrores.close();
         archivo.close();
         
-          
-            
+                    
         }catch(IOException | SecurityException e)
         {
            JOptionPane.showMessageDialog(null, "Se ha producido un error al cargar los archvios de arranque" + "\n Verifique que los archivos de LOG y del sistema esten ubicados apropiadamente" + e, "Error", JOptionPane.ERROR_MESSAGE);

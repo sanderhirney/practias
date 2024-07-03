@@ -3,6 +3,8 @@ package inventario;
 import BaseDatos.ConexionEmpresas;
 import java.awt.Color;
 import java.awt.Dimension;
+import java.io.File;
+import java.net.URL;
 import javax.swing.JOptionPane;
 import javax.swing.tree.DefaultMutableTreeNode;
 
@@ -38,7 +40,8 @@ public class Ventana_Principal extends javax.swing.JFrame {
         {
        Etiq_titulo.setText(nombre);
         }
-        
+             
+              
     }
 
     /**
