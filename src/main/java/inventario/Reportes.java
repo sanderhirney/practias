@@ -5,6 +5,7 @@ import BaseDatos.ConexionDatosdeReporte;
 import BaseDatos.ConexionEmpresas;
 import Reportes.GenerarExceF4;
 import Reportes.GenerarExistGeneral;
+import Reportes.ReporteF157;
 
 import javax.swing.JOptionPane;
 
@@ -328,6 +329,9 @@ ConexionEmpresas secciones=new ConexionEmpresas();
        datosReporte.setMesFin(mes_reporte);
        datosReporte.setSeccion(seccion);
        datosReporte.guardar();
+       
+       ReporteF157 reporte=new ReporteF157();
+       reporte.llamarReporte();
       
       
         }//else
