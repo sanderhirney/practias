@@ -9,6 +9,7 @@ import java.util.List;
 import javax.swing.JOptionPane;
 import javax.swing.RowFilter;
 import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableModel;
 import javax.swing.table.TableRowSorter;
 
 public class Consultar_Articulos extends javax.swing.JDialog {
@@ -20,7 +21,7 @@ Iterator lista2;
 String nombre_seleccion;
 String codigo_seleccion;
 int seccion;
-TableRowSorter filtro;
+TableRowSorter<TableModel> filtro;
     public Consultar_Articulos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -33,7 +34,7 @@ TableRowSorter filtro;
         codigos=articulos.codigo();
         nombres=articulos.nombre();
         modelo=(DefaultTableModel)Tabla_articulos.getModel();
-        filtro=new TableRowSorter(Tabla_articulos.getModel());
+        filtro=new TableRowSorter<>(Tabla_articulos.getModel());
         try{
         lista1=codigos.iterator();
         lista2=nombres.iterator();
@@ -152,9 +153,11 @@ TableRowSorter filtro;
     }//GEN-LAST:event_Boton_cancelarActionPerformed
 
     private void Campo_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Campo_buscarKeyPressed
-        // TODO add your handling code here:
-        Tabla_articulos.setRowSorter(filtro);
-        filtro.setRowFilter(RowFilter.regexFilter(Campo_buscar.getText(), 0));
+        
+        Tabla_articulos.setRowSorter(filtro); 
+        filtro.setRowFilter(RowFilter.regexFilter(Campo_buscar.getText().trim(), 1));
+        
+                     
     }//GEN-LAST:event_Campo_buscarKeyPressed
 public String getNombre()
 {

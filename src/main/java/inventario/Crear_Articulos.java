@@ -21,8 +21,10 @@ public class Crear_Articulos extends javax.swing.JDialog {
     private List<String> descripcionGrupo=new ArrayList<>();
     private List<String> descripcionUnidad=new ArrayList<>();
     private int resultado=0;//guardar el resultado de la operacion. 1->si guardo. 0->no guardo.
-  Iterator lista1;
+    Iterator lista1;
     Iterator lista2;
+    Iterator lista3;
+    Iterator lista4;
     Date fecha= new Date();
  int codigo_seccion;
  java.sql.Date sqlFecha = new java.sql.Date(fecha.getTime());
@@ -45,9 +47,11 @@ public class Crear_Articulos extends javax.swing.JDialog {
             Combo_Unidad.addItem(lista1.next());
         }
         lista2= descripcionGrupo.iterator();
+        lista3=codigoGrupo.iterator();
+        lista4=codigoSubGrupo.iterator();
         while(lista2.hasNext())
         {
-            Combo_Grupo.addItem(lista2.next());
+            Combo_Grupo.addItem(lista3.next()+"-"+lista4.next()+" "+lista2.next());
         }
         ConexionEmpresas secciones=new ConexionEmpresas();
         secciones.consulta();
@@ -114,7 +118,7 @@ public class Crear_Articulos extends javax.swing.JDialog {
                     .addComponent(jSeparator1)
                     .addGroup(layout.createSequentialGroup()
                         .addComponent(Etiq_encabezado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 20, Short.MAX_VALUE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 71, Short.MAX_VALUE)
                         .addComponent(jLabel1, javax.swing.GroupLayout.PREFERRED_SIZE, 191, javax.swing.GroupLayout.PREFERRED_SIZE))
                     .addGroup(layout.createSequentialGroup()
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -125,7 +129,7 @@ public class Crear_Articulos extends javax.swing.JDialog {
                         .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(Combo_Unidad, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(Campo_Nombre)
-                            .addComponent(Combo_Grupo, 0, 291, Short.MAX_VALUE))
+                            .addComponent(Combo_Grupo, 0, 342, Short.MAX_VALUE))
                         .addGap(32, 32, 32)))
                 .addContainerGap())
         );

@@ -37,7 +37,7 @@
                   <Component id="jSeparator1" max="32767" attributes="0"/>
                   <Group type="102" attributes="0">
                       <Component id="Etiq_encabezado" min="-2" max="-2" attributes="0"/>
-                      <EmptySpace pref="20" max="32767" attributes="0"/>
+                      <EmptySpace pref="71" max="32767" attributes="0"/>
                       <Component id="jLabel1" min="-2" pref="191" max="-2" attributes="0"/>
                   </Group>
                   <Group type="102" attributes="0">
@@ -50,7 +50,7 @@
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Component id="Combo_Unidad" min="-2" max="-2" attributes="0"/>
                           <Component id="Campo_Nombre" max="32767" attributes="0"/>
-                          <Component id="Combo_Grupo" alignment="0" pref="291" max="32767" attributes="0"/>
+                          <Component id="Combo_Grupo" alignment="0" pref="342" max="32767" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                   </Group>
