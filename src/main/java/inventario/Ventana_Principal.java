@@ -213,6 +213,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
               //y desde esta ventana el usuario decide si crea uno nuevo 
               //o modifica alguno seleccionado
               Consultar_Entradas entrada=new Consultar_Entradas(this, true);
+              entrada.PrincipalFrame(this);
               entrada.setResizable(false);
               entrada.setLocationRelativeTo(null);
               entrada.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
@@ -224,6 +225,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
           if( ((nodo.getParent().toString()).equals("Inventario")) && ((nodeInfo.toString()).equals("Salidas")) )
           {
               Consultar_Salidas salida=new Consultar_Salidas(null, true);
+              salida.PrincipalFrame(this);
               salida.setResizable(false);
               salida.setLocationRelativeTo(null);
               salida.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

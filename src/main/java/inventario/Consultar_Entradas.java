@@ -15,6 +15,7 @@ import java.sql.Date;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -45,10 +46,11 @@ TableRowSorter filtro;
 List<BigDecimal>formateado=new ArrayList<>();
 int decimal_campo;
 int decimal_cantidad;
-
+JFrame ventanaPrincipal;
     public Consultar_Entradas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
+        
          //valido si hay errores con las entradas
         ConexionValidadorErroresRegistro errores=new ConexionValidadorErroresRegistro();
         errores.consulta(1);//la consulta de ver las entradas
@@ -368,14 +370,16 @@ int decimal_cantidad;
     private void boton_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_nuevoActionPerformed
         // TODO add your handling code here:
                 dispose();//cierro la ventana de consulta una vez culmino de abrir la ventana de entradas
-              Entradas_Inventario entrada= new Entradas_Inventario(null,false);
+              Entradas_Inventario entrada= new Entradas_Inventario(ventanaPrincipal,false);
               entrada.setResizable(false);
               entrada.setLocationRelativeTo(null);
               entrada.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
               entrada.setVisible(true);
             
     }//GEN-LAST:event_boton_nuevoActionPerformed
-
+public void PrincipalFrame(JFrame ventana){
+    ventanaPrincipal=ventana;
+}
 
     public static void main(String args[]) {
         /* Set the Nimbus look and feel */

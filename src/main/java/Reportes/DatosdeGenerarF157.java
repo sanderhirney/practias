@@ -48,21 +48,15 @@ public class DatosdeGenerarF157 implements JRDataSource{
     public DatosdeGenerarF157(){
         reporte.consultas();
         codigoArticulos=reporte.getCodigosArticulos();
-
-        
         descripcionUnidad=reporte.getMedida();
         grupo=reporte.getGrupo();
-      
         fechaDocumento=reporte.getFecha();
         codigoConcepto=reporte.getCodigoConcepto();
-      
         documento=String.valueOf(reporte.getCodigoDocumento());
         index=-1;
-        
         seccionActiva.consulta();
         codigoSeccion=seccionActiva.codigo();
-        
-        decimales.setSeccion(codigoSeccion);
+         decimales.setSeccion(codigoSeccion);
         decimales.consulta();
         decimalesPrecioUnitario=decimales.getDecimalCampo();
         decimalesCalculoTotal=decimales.getDecimalTotal();

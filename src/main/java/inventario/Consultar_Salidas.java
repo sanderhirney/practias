@@ -16,6 +16,7 @@ import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Iterator;
 import java.util.List;
+import javax.swing.JFrame;
 import javax.swing.JOptionPane;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableRowSorter;
@@ -48,7 +49,7 @@ Double temporal_format;
 int decimal_campo=0;
 int decimal_cantidad=0;
 int fila_seleccionada;//variable para tomar la fila que ha sido seleccionada
-
+JFrame ventanaPrincipal;
     public Consultar_Salidas(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -385,11 +386,14 @@ int fila_seleccionada;//variable para tomar la fila que ha sido seleccionada
            
         }
     }//GEN-LAST:event_boton_editActionPerformed
-
+public void PrincipalFrame(JFrame ventana){
+    ventanaPrincipal=ventana;
+}
+ 
     private void boton_nuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_boton_nuevoActionPerformed
         // TODO add your handling code here:
                 dispose();//cierro la ventana de consulta una vez culmino de abrir la ventana de entradas
-              Salida_Inventario salida= new Salida_Inventario(null,false);
+              Salida_Inventario salida= new Salida_Inventario(ventanaPrincipal,false);
               salida.setResizable(false);
               salida.setLocationRelativeTo(null);
               salida.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

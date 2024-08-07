@@ -107,8 +107,9 @@ DefaultTableModel modelo;
  public Entradas_Inventario(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
-        resolucion=super.getToolkit().getScreenSize();
+       resolucion=super.getToolkit().getScreenSize();
         this.setSize(resolucion);
+        
         modelo= (DefaultTableModel)Tabla_datos.getModel();//para poder manipular la tabla
         Etiq_Fecha_Oper.setText(sql.toString());
         conceptos.setTipo(1);
@@ -715,7 +716,8 @@ DefaultTableModel modelo;
     private void Boton_BuscarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_BuscarActionPerformed
         // TODO add your handling code here:
         Ver_Articulos ventana=new Ver_Articulos(null, true);
-       
+       ventana.setHabilitacion(1);
+       ventana.InformacionArticulos();
        ventana.setResizable(false);
        ventana.setLocationRelativeTo(null);
        ventana.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);

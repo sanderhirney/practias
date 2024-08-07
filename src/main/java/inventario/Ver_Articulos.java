@@ -21,6 +21,7 @@ String nombre_seleccion;
 String codigo_seleccion;
 int codigo_seccion;
 TableRowSorter filtro;
+int habilitarBoton=1;//1 para si y 0 cero para no. si es entrada si. si es salida No lo habilita
     public Ver_Articulos(java.awt.Frame parent, boolean modal) {
         super(parent, modal);
         initComponents();
@@ -28,7 +29,7 @@ TableRowSorter filtro;
         ConexionEmpresas secciones=new ConexionEmpresas();
         secciones.consulta();
         codigo_seccion=secciones.codigo_empresa();
-        InformacionArticulos();
+        //InformacionArticulos();
         
       
     }
@@ -110,7 +111,7 @@ TableRowSorter filtro;
             .addGroup(layout.createSequentialGroup()
                 .addGap(14, 14, 14)
                 .addComponent(Etiq_encabezado, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 35, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 224, Short.MAX_VALUE)
                 .addComponent(jLabel1)
                 .addGap(30, 30, 30))
             .addComponent(Separador1)
@@ -118,12 +119,12 @@ TableRowSorter filtro;
                 .addGap(16, 16, 16)
                 .addComponent(panelBotones, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                    .addComponent(Campo_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 350, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(29, 29, 29))
+            .addGroup(layout.createSequentialGroup()
+                .addGap(33, 33, 33)
+                .addGroup(layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                    .addComponent(jScrollPane1, javax.swing.GroupLayout.DEFAULT_SIZE, 543, Short.MAX_VALUE)
+                    .addComponent(Campo_buscar))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -136,9 +137,9 @@ TableRowSorter filtro;
                 .addComponent(Separador1, javax.swing.GroupLayout.PREFERRED_SIZE, 10, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addGap(18, 18, 18)
                 .addComponent(Campo_buscar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, 234, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addGap(18, 18, 18)
+                .addGap(24, 24, 24)
                 .addComponent(panelBotones, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(90, Short.MAX_VALUE))
         );
@@ -146,6 +147,9 @@ TableRowSorter filtro;
         pack();
     }// </editor-fold>//GEN-END:initComponents
 public void InformacionArticulos(){
+    if(habilitarBoton==0){
+            botonCrearArticulo.setEnabled(false);
+        }
       ConexionVerArticulos articulos=new ConexionVerArticulos();
         articulos.setSeccion(codigo_seccion);
         articulos.consulta();
@@ -179,7 +183,7 @@ public void InformacionArticulos(){
     private void Campo_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Campo_buscarKeyPressed
         // TODO add your handling code here:
         Tabla_articulos.setRowSorter(filtro);
-        filtro.setRowFilter(RowFilter.regexFilter(Campo_buscar.getText(), 0));
+        filtro.setRowFilter(RowFilter.regexFilter(Campo_buscar.getText(), 1));
     }//GEN-LAST:event_Campo_buscarKeyPressed
 
     private void Boton_guardarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_guardarActionPerformed
@@ -212,6 +216,9 @@ public String getNombre()
 public String getCodigo()
 {
     return codigo_seleccion;
+}
+public void setHabilitacion(int recibido){
+    habilitarBoton=recibido;
 }
 
 
