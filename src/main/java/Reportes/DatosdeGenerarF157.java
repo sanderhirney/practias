@@ -2,6 +2,7 @@
 package Reportes;
 
 import BaseDatos.ConexionConsultarDecimales;
+import BaseDatos.ConexionReporteF157;
 import BaseDatos.ConexionReporteSalidas;
 import BaseDatos.ConexionVerSeccionActiva;
 import java.text.DecimalFormat;
@@ -18,7 +19,7 @@ public class DatosdeGenerarF157 implements JRDataSource{
         private int index;
          List<Integer> grupo=new ArrayList<>();
         List<Integer> codigoCargos=new ArrayList<>();
-        List<Integer> codigoArticulos=new ArrayList<>();
+        
         List<Integer> cargosFirmantes=new ArrayList<>();
         List<String> nombresFirmantes=new ArrayList<>();
         List<String> apellidosFirmantes=new ArrayList<>();
@@ -27,6 +28,7 @@ public class DatosdeGenerarF157 implements JRDataSource{
         List<String> descripcionCargos=new ArrayList<>();
         List<String> descripcionUnidad=new ArrayList<>();
         List<Integer> desde=new ArrayList<>();
+        List<Integer> codigoConcepto=new ArrayList<>();
         List<Integer> hasta=new ArrayList<>();
         List<Double> ingresosBolivares=new ArrayList<>();
         List<Double> egresosBolivares=new ArrayList<>();
@@ -37,26 +39,27 @@ public class DatosdeGenerarF157 implements JRDataSource{
         String documento;
         int decimalesPrecioUnitario;
         int decimalesCalculoTotal;
-        int codigoConcepto=0;
+       
         Double totalIngresos=0.0;
         Double totalEgresos=0.0;
         
-        ConexionReporteSalidas reporte=new ConexionReporteSalidas();
+        ConexionReporteF157 reporte=new ConexionReporteF157();
         ConexionConsultarDecimales decimales=new ConexionConsultarDecimales();
         ConexionVerSeccionActiva seccionActiva=new ConexionVerSeccionActiva();
         
     public DatosdeGenerarF157(){
         reporte.consultas();
-        codigoArticulos=reporte.getCodigosArticulos();
+        
         descripcionUnidad=reporte.getMedida();
         grupo=reporte.getGrupo();
         fechaDocumento=reporte.getFecha();
-        codigoConcepto=reporte.getCodigoConcepto();
-        documento=String.valueOf(reporte.getCodigoDocumento());
+        codigoConcepto=reporte.getCodigosConceptos();
+        descripcionConcepto=reporte.getDescripcionConcepto();
+        
         index=-1;
         seccionActiva.consulta();
         codigoSeccion=seccionActiva.codigo();
-         decimales.setSeccion(codigoSeccion);
+        decimales.setSeccion(codigoSeccion);
         decimales.consulta();
         decimalesPrecioUnitario=decimales.getDecimalCampo();
         decimalesCalculoTotal=decimales.getDecimalTotal();
@@ -66,7 +69,7 @@ public class DatosdeGenerarF157 implements JRDataSource{
     @Override
     public boolean next() throws JRException {
         index++;
-        return(index<codigoArticulos.size());
+        return(index<codigoConcepto.size());
     }
 
     @Override

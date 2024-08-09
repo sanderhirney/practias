@@ -16,37 +16,50 @@ public class ConexionReporteF157 {
     ResultSet ejecutar;
     int resultado;
    
-    List<Integer> codigoConcepto= new ArrayList<>();
-    List<String> descripcionConcepto=new ArrayList<>();
-    List<String> tipo=new ArrayList<>();
+    List<Integer> codigoConceptos= new ArrayList<>();
+    List<String> descripcionConceptos=new ArrayList<>();
     List<Integer> codigo_medida=new ArrayList<>();
     List<String> descripcion_medida=new ArrayList<>();
     List<String> nombre_art=new ArrayList<>();
-    List<Double> precioArticulos=new ArrayList<>();
-    List<Double> cantidadArticulos=new ArrayList<>();
+    List<Double> IngresosBs=new ArrayList<>();
+    List<Double> EgresosBs=new ArrayList<>();
     List<Integer> grupo=new ArrayList<>();
-    int codigoDocumento;
+    List<String> tipoConceptos=new ArrayList<>();
+    List<Integer> consecutivoDesde=new ArrayList<>();
+    List<Integer> consecutivoHasta=new ArrayList<>();
+    
+    int seccion;
+    int mesInicio;
+    int mesFin;
+    int anio;
+    
     Date fecha;
-   
- 
-    int consecutivo=0;
+    
+    String consultaConsecutivosEntrada="""
+                                      select MIN(consecutivo) as minimo, MAX(consecutivo) as maximo from doc_entradas where
+                                      extract(month from fecha_operacion)=? and extract (year from fecha_operacion)=?
+                                      and seccion=?
+                                      and concepto_entrada=?
+                                      """;
+    String consultaConsecutivosSalidas="""
+                                       select MIN(consecutivo) as minimo, MAX(consecutivo) as maximo from doc_salidas where
+                                       extract(month from fecha_documento)=? and extract (year from fecha_documento)=?
+                                       and secciones=?
+                                       and concepto_salidas=?
+                                       """;
     private void consultaGrupos()
-    {
-        
+    {        
           try
     {
-       
         conectar.Conectar();
         conex= conectar.getConexion();
-        consulta= conex.prepareStatement("select *from conceptos");
-        
+        consulta= conex.prepareStatement("select *from conceptos order by codigo asc");
         ejecutar=consulta.executeQuery();
         while( ejecutar.next())
         {
-              codigoConcepto.add(ejecutar.getInt("codigo"));
-              descripcionConcepto.add(ejecutar.getString("descripcion"));
-              tipo.add(ejecutar.getString("tipo"));
-              
+              codigoConceptos.add(ejecutar.getInt("codigo"));
+              descripcionConceptos.add(ejecutar.getString("descripcion"));
+              tipoConceptos.add(ejecutar.getString("tipo"));
         }//if
       
       
@@ -56,79 +69,82 @@ public class ConexionReporteF157 {
         JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de lectura de conceptos.\n Ventana Crear Reporte SalidaF 15-7 \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
     }
     }//consulta
-    private void consultaMedida()
-    {
-          try
-    {
-        for(int i=0; i<codigoConcepto.size(); i++)
-        {
-        conectar.Conectar();
-        conex= conectar.getConexion();
-        consulta= conex.prepareStatement("select nombre from unidades where cod_unidad=?");
-        consulta.setInt(1, codigo_medida.get(i));
-        ejecutar=consulta.executeQuery();
-        while( ejecutar.next())
-        {
-               descripcion_medida.add(ejecutar.getString("nombre"));
-               
-               
-        }//if
-      
-        }//for
-    }//consulta
-           catch(SQLException ex)
-    {
-        JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de unidades de medida.\n Ventana Crear Reporte Salidas \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
-    }
-    }//consulta_medida
-    
-    private void consultarUltimoIngreso(){
+ 
+     private  void consultarDatosReporte(){
         try{
             conectar.Conectar();
             conex= conectar.getConexion();
-            consulta= conex.prepareStatement("select fecha_documento, id, concepto_salidas, consecutivo from doc_salidas where id=(select MAX(id) from doc_salidas)");
+            consulta= conex.prepareStatement("select seccion, mesinicio, mesfin, anio from datosreportes");
             ejecutar=consulta.executeQuery();
-            if(ejecutar.next()){
-                codigoDocumento=ejecutar.getInt("id");
-                fecha=ejecutar.getDate("fecha_documento");
-                
-                consecutivo=ejecutar.getInt("consecutivo");
-            }
-            
-            conectar.Cerrar();
-        }
-        catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta de Documento.\n Ventana Crear Reporte Salidas Documento \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
-        }
-    }
-   
-    private  void consultarHistorial(){
-        try{
-            conectar.Conectar();
-            conex= conectar.getConexion();
-            consulta= conex.prepareStatement("select cod_articulo, valor_salida, precio from historiales where numero_doc=?");
-            consulta.setString(1, String.valueOf(codigoDocumento));//convertir codigoDocumento a string
-            ejecutar=consulta.executeQuery();
-            
             while(ejecutar.next()){
-              
-              
-              cantidadArticulos.add(ejecutar.getDouble("valor_salida"));
-              precioArticulos.add(ejecutar.getDouble("precio"));  
+              seccion=ejecutar.getInt("seccion");
+              mesInicio=ejecutar.getInt("mesinicio");
+              mesFin=ejecutar.getInt("mesfin");
+              anio=ejecutar.getInt("anio");
             }
             
             conectar.Cerrar();
         }
         catch(SQLException e){
-            JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta de Documento.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+            JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta de Datos del reporte.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
         }
     }
-    
+     private void consultarConsecutivos(){
+         for(int i=0; i<codigoConceptos.size(); i++){
+             if(tipoConceptos.get(i).equals("E")){
+                            try{
+                       conectar.Conectar();
+                       conex= conectar.getConexion();
+                       consulta= conex.prepareStatement(consultaConsecutivosEntrada);
+                       consulta.setInt(1, mesFin);
+                       consulta.setInt(2, anio);
+                       consulta.setInt(3, seccion);
+                       consulta.setInt(4, codigoConceptos.get(i));
+                       ejecutar=consulta.executeQuery();
+                       while(ejecutar.next()){
+                       consecutivoDesde.add(ejecutar.getInt("minimo"));
+                       consecutivoHasta.add(ejecutar.getInt("maximo"));
+                       }
+
+                       conectar.Cerrar();
+                   }
+                   catch(SQLException e){
+                       JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta consecutivos de entrada.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                   }
+            }
+             if(tipoConceptos.get(i).equals("S"))
+             {
+                 try{
+                       conectar.Conectar();
+                       conex= conectar.getConexion();
+                       consulta= conex.prepareStatement(consultaConsecutivosSalidas);
+                       consulta.setInt(1, mesFin);
+                       consulta.setInt(2, anio);
+                       consulta.setInt(3, seccion);
+                       consulta.setInt(4, codigoConceptos.get(i));
+                       ejecutar=consulta.executeQuery();
+                       while(ejecutar.next()){
+                       consecutivoDesde.add(ejecutar.getInt("minimo"));
+                       consecutivoHasta.add(ejecutar.getInt("maximo"));
+                       }
+
+                       conectar.Cerrar();
+                   }
+                   catch(SQLException e){
+                       JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta consecutivos de salida.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                   }
+             }
+             
+         }         
+     }
     public void consultas(){
-        consultarUltimoIngreso();
-        consultarHistorial();
+      
+        consultarDatosReporte();
         consultaGrupos();
-        consultaMedida();
+        consultarConsecutivos();
+     for(int i=0; i<codigoConceptos.size(); i++){
+         System.out.println( "-> "+codigoConceptos.get(i)+" : "+descripcionConceptos.get(i)+" DESDE "+consecutivoDesde.get(i)+" HASTA "+consecutivoHasta.get(i));
+     }
      
         
     }
@@ -142,36 +158,25 @@ public class ConexionReporteF157 {
     }
     public List<String> getDescripcionConcepto()
     {
-        return descripcionConcepto;
+        return descripcionConceptos;
     }
     public List<String> getMedida()
     {
         return descripcion_medida;
     }
     public List<Integer> getCodigosConceptos(){
-        return codigoConcepto;
+        return codigoConceptos;
     }
      public List<String> getDescripcionArticulos()
     {
         return nombre_art;
     }
-     public List<Double> getCantidades(){
-         return cantidadArticulos;
-     }
-     public List<Double> getPrecios(){
-         return precioArticulos;
-     }
+   
      public Date getFecha(){
             return fecha;
      }
 
-    
-     public int getCodigoDocumento(){
-         return codigoDocumento;
-     }
-     public int getConsecutivo(){
-         return consecutivo;
-     }
    
+  
    
 }//clase
