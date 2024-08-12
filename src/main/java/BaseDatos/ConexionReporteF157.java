@@ -21,8 +21,8 @@ public class ConexionReporteF157 {
     List<Integer> codigo_medida=new ArrayList<>();
     List<String> descripcion_medida=new ArrayList<>();
     List<String> nombre_art=new ArrayList<>();
-    List<Double> IngresosBs=new ArrayList<>();
-    List<Double> EgresosBs=new ArrayList<>();
+    List<Double> ingresosBs=new ArrayList<>();
+    List<Double> egresosBs=new ArrayList<>();
     List<Integer> grupo=new ArrayList<>();
     List<String> tipoConceptos=new ArrayList<>();
     List<Integer> consecutivoDesde=new ArrayList<>();
@@ -35,39 +35,106 @@ public class ConexionReporteF157 {
     
     Date fecha;
     
-    String consultaConsecutivosEntrada="""
-                                      select MIN(consecutivo) as minimo, MAX(consecutivo) as maximo from doc_entradas where
-                                      extract(month from fecha_operacion)=? and extract (year from fecha_operacion)=?
-                                      and seccion=?
-                                      and concepto_entrada=?
-                                      """;
-    String consultaConsecutivosSalidas="""
-                                       select MIN(consecutivo) as minimo, MAX(consecutivo) as maximo from doc_salidas where
-                                       extract(month from fecha_documento)=? and extract (year from fecha_documento)=?
-                                       and secciones=?
-                                       and concepto_salidas=?
-                                       """;
-    private void consultaGrupos()
-    {        
-          try
-    {
-        conectar.Conectar();
-        conex= conectar.getConexion();
-        consulta= conex.prepareStatement("select *from conceptos order by codigo asc");
-        ejecutar=consulta.executeQuery();
-        while( ejecutar.next())
-        {
-              codigoConceptos.add(ejecutar.getInt("codigo"));
-              descripcionConceptos.add(ejecutar.getString("descripcion"));
-              tipoConceptos.add(ejecutar.getString("tipo"));
-        }//if
-      
-      
-    }//consulta
-           catch(SQLException ex)
-    {
-        JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de lectura de conceptos.\n Ventana Crear Reporte SalidaF 15-7 \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+   
+    String consultaIngresosBsMes="""
+                                select SUM(valor_operacion) as ingresos, 
+                                MIN(consecutivo) as minimo, 
+                                MAX(consecutivo) as maximo
+                                from doc_entradas where
+                                extract(month from fecha_documento)=? and extract (year from fecha_documento)=?
+                                and seccion=?
+                                and concepto_entrada=?
+                                """;
+    String consultaEgresosBsMes="""
+                                select SUM(valor_operacion) as egresos, 
+                                MIN(consecutivo) as minimo, 
+                                MAX(consecutivo) as maximo
+                                from doc_salidas where
+                                extract(month from fecha_documento)=? and extract (year from fecha_documento)=?
+                                and secciones=?
+                                and concepto_salidas=?
+                                """;
+    private void consultaCodigoGrupos(){ 
+                        try
+                  {
+                      conectar.Conectar();
+                      conex= conectar.getConexion();
+                      consulta= conex.prepareStatement("select DISTINCT(concepto_entrada) from doc_entradas order by concepto_entrada asc");
+                      ejecutar=consulta.executeQuery();
+                      while( ejecutar.next())
+                      {
+                            codigoConceptos.add(ejecutar.getInt("concepto_entrada"));
+                            tipoConceptos.add("E");//aqui le agregro que es de tipo Entrada
+                      }//if
+                  }//try
+                         catch(SQLException ex)
+                  {
+                      JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de lectura de conceptos de entrada.\n Ventana Crear Reporte SalidaF 15-7 \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                  }
+                            try
+                  {
+                      conectar.Conectar();
+                      conex= conectar.getConexion();
+                      consulta= conex.prepareStatement("select DISTINCT(concepto_salidas) from doc_salidas order by concepto_salidas asc");
+                      ejecutar=consulta.executeQuery();
+                      while( ejecutar.next())
+                      {
+                            codigoConceptos.add(ejecutar.getInt("concepto_salidas"));
+                            tipoConceptos.add("S");//aqui le agregro que es de tipo Entrada
+                      }//if
+                  }//try
+                         catch(SQLException ex)
+                  {
+                      JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de lectura de conceptos de salidas.\n Ventana Crear Reporte SalidaF 15-7 \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                  }
     }
+    private void consultaDescripcionGrupos()
+    {        
+        for(int i=0; i<codigoConceptos.size(); i++){
+            if(tipoConceptos.get(i).equals("E")){
+
+                                            try
+                         {
+                           conectar.Conectar();
+                           conex= conectar.getConexion();
+                           consulta= conex.prepareStatement("select descripcion from conceptos where codigo=?");
+                           consulta.setInt(1, codigoConceptos.get(i));
+                           ejecutar=consulta.executeQuery();
+                             while( ejecutar.next())
+                             {
+                                   descripcionConceptos.add(ejecutar.getString("descripcion"));
+                                
+                             }//if
+
+                         }//consulta
+                                catch(SQLException ex)
+                         {
+                             JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de lectura de descripcion de conceptos.\n Ventana Crear Reporte SalidaF 15-7 \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                         }
+                
+            }
+            if(tipoConceptos.get(i).equals("S")){
+                                    try
+                         {
+                           conectar.Conectar();
+                           conex= conectar.getConexion();
+                           consulta= conex.prepareStatement("select descripcion from conceptos where codigo=?");
+                           consulta.setInt(1, codigoConceptos.get(i));
+                           ejecutar=consulta.executeQuery();
+                             while( ejecutar.next())
+                             {
+                                   descripcionConceptos.add(ejecutar.getString("descripcion"));
+                                
+                             }//if
+
+                         }//consulta
+                                catch(SQLException ex)
+                         {
+                             JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de lectura de descripcion de conceptos.\n Ventana Crear Reporte SalidaF 15-7 \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                         }
+            }
+        }
+   
     }//consulta
  
      private  void consultarDatosReporte(){
@@ -89,81 +156,94 @@ public class ConexionReporteF157 {
             JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta de Datos del reporte.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
         }
     }
-     private void consultarConsecutivos(){
+ 
+     private void consultarIngresosEgresosMes(){
          for(int i=0; i<codigoConceptos.size(); i++){
-             if(tipoConceptos.get(i).equals("E")){
-                            try{
+             if(tipoConceptos.get(i).equals("E"))
+             {              
+                     try{
                        conectar.Conectar();
                        conex= conectar.getConexion();
-                       consulta= conex.prepareStatement(consultaConsecutivosEntrada);
+                       consulta= conex.prepareStatement(consultaIngresosBsMes);
                        consulta.setInt(1, mesFin);
                        consulta.setInt(2, anio);
                        consulta.setInt(3, seccion);
                        consulta.setInt(4, codigoConceptos.get(i));
-                       ejecutar=consulta.executeQuery();
+                        ejecutar=consulta.executeQuery();
                        while(ejecutar.next()){
-                       consecutivoDesde.add(ejecutar.getInt("minimo"));
-                       consecutivoHasta.add(ejecutar.getInt("maximo"));
+                          ingresosBs.add(ejecutar.getDouble("ingresos"));
+                          egresosBs.add(0.0);
+                          consecutivoDesde.add(ejecutar.getInt("minimo"));
+                          consecutivoHasta.add(ejecutar.getInt("maximo"));
                        }
 
                        conectar.Cerrar();
-                   }
+                     }
                    catch(SQLException e){
-                       JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta consecutivos de entrada.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
-                   }
-            }
+                       JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta Ingresos en Bs.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                       }
+             }
              if(tipoConceptos.get(i).equals("S"))
-             {
+             {              
                  try{
                        conectar.Conectar();
                        conex= conectar.getConexion();
-                       consulta= conex.prepareStatement(consultaConsecutivosSalidas);
+                       consulta= conex.prepareStatement(consultaEgresosBsMes);
                        consulta.setInt(1, mesFin);
                        consulta.setInt(2, anio);
                        consulta.setInt(3, seccion);
                        consulta.setInt(4, codigoConceptos.get(i));
                        ejecutar=consulta.executeQuery();
                        while(ejecutar.next()){
-                       consecutivoDesde.add(ejecutar.getInt("minimo"));
-                       consecutivoHasta.add(ejecutar.getInt("maximo"));
+                           ingresosBs.add(0.0);
+                          egresosBs.add(ejecutar.getDouble("egresos"));
+                          consecutivoDesde.add(ejecutar.getInt("minimo"));
+                          consecutivoHasta.add(ejecutar.getInt("maximo"));
                        }
 
                        conectar.Cerrar();
-                   }
+                     }
                    catch(SQLException e){
-                       JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta consecutivos de salida.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
-                   }
+                       JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta Egresos en Bs.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                       }
              }
-             
-         }         
      }
+    }
+    
     public void consultas(){
       
         consultarDatosReporte();
-        consultaGrupos();
-        consultarConsecutivos();
-     for(int i=0; i<codigoConceptos.size(); i++){
-         System.out.println( "-> "+codigoConceptos.get(i)+" : "+descripcionConceptos.get(i)+" DESDE "+consecutivoDesde.get(i)+" HASTA "+consecutivoHasta.get(i));
-     }
-     
+        consultaCodigoGrupos();
+        consultaDescripcionGrupos();
+        consultarIngresosEgresosMes();
         
     }
-    
-  
-   
+    public List<Integer> getDesde()
+    {
+        return consecutivoDesde;
+    }
+    public List<Integer> getHasta()
+    {
+        return consecutivoHasta;
+    }
+    public List<Double> getIngresosBsMes(){
+        ingresosBs.forEach(System.out::println);
+        return ingresosBs;
+    }
+     public List<Double> getEgresosBsMes(){
+         egresosBs.forEach(System.out::println);
+        return egresosBs;
+    }
     
     public List<Integer> getGrupo()
     {
-        return grupo;
+        return codigoConceptos;
     }
     public List<String> getDescripcionConcepto()
     {
         return descripcionConceptos;
     }
-    public List<String> getMedida()
-    {
-        return descripcion_medida;
-    }
+   
     public List<Integer> getCodigosConceptos(){
         return codigoConceptos;
     }

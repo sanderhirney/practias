@@ -50,7 +50,7 @@ public class DatosdeGenerarF157 implements JRDataSource{
     public DatosdeGenerarF157(){
         reporte.consultas();
         
-        descripcionUnidad=reporte.getMedida();
+       
         grupo=reporte.getGrupo();
         fechaDocumento=reporte.getFecha();
         codigoConcepto=reporte.getCodigosConceptos();
@@ -63,6 +63,10 @@ public class DatosdeGenerarF157 implements JRDataSource{
         decimales.consulta();
         decimalesPrecioUnitario=decimales.getDecimalCampo();
         decimalesCalculoTotal=decimales.getDecimalTotal();
+        desde=reporte.getDesde();
+        hasta=reporte.getHasta();
+        ingresosBolivares=reporte.getIngresosBsMes();
+        egresosBolivares=reporte.getEgresosBsMes();
         
     }
        
@@ -79,7 +83,7 @@ public class DatosdeGenerarF157 implements JRDataSource{
         String campo=jrf.getName();
         switch(campo)
         {
-            case "Codigos" : valor=grupo.get(index).toString();
+            case "Codigos" : valor=codigoConcepto.get(index).toString();
             break;
             case "Descripcion" : valor=descripcionConcepto.get(index);
             break;
@@ -91,9 +95,11 @@ public class DatosdeGenerarF157 implements JRDataSource{
             break;
             case "EgresoBolivares" : valor=egresosBolivares.get(index);
             break;
-            case "IngresosTotal" : valor=totalIngresos;
+           // case "IngresosTotal" : valor=totalIngresos;
+            case "IngresosTotal":valor=0.0;
             break;
-            case "EgresosTotal" : valor=totalEgresos;
+           // case "EgresosTotal" : valor=totalEgresos;
+            case "EgresosTotal":valor=0.0;
             break;
             
 
