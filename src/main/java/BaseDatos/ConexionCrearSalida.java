@@ -43,29 +43,32 @@ public class ConexionCrearSalida {
    
            Month mesOperacion =(LocalDate.now().getMonth());
            int mesDeCreacionDocumento=mesOperacion.getValue();
-        try
-    {
-        
-        conectar.Conectar();
-        conex= conectar.getConexion();
-        consulta= conex.prepareStatement("select max(consecutivo) as consecutivo from doc_salidas where extract(month from fecha_documento)=? and concepto_salidas=?");
-        consulta.setInt(1, mesDeCreacionDocumento);
-        consulta.setInt(2, concepto_salida);
-        ResultadoConsulta=consulta.executeQuery();
-        if(ResultadoConsulta.next())
-        {
-        consecutivo=ResultadoConsulta.getInt("consecutivo");
-        consecutivo++;//aumento en 1 ya que debe aumentar en 1 el que lee de la bd
-        }else{
-            consecutivo=1;
-        }
-        
-    } catch(SQLException ex)
-    {
-        JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de salida de documento.\n Ventana Consecutivo del Documento \n Contacte al Desarrollador \n "+ex ,  "ADVERTENCIA GRAVE", JOptionPane.WARNING_MESSAGE);
-    }
-        }///realiza el calculo de si la variable consecutivo vale 0 es decir si no es una modificacion
-        //ya que al ser modificacion el consecutivo debera conservarse
+           int anioDeCreacionDocumento=(LocalDate.now().getYear());
+                    try
+                {
+
+                    conectar.Conectar();
+                    conex= conectar.getConexion();
+                    consulta= conex.prepareStatement("select max(consecutivo) as consecutivo from doc_salidas where extract(month from fecha_documento)=? and extract(year from fecha_documento)=? and secciones=? and concepto_salidas=?");
+                    consulta.setInt(1, mesDeCreacionDocumento);
+                    consulta.setInt(2, anioDeCreacionDocumento);
+                    consulta.setInt(3, seccion);
+                    consulta.setInt(4, concepto_salida);
+                    ResultadoConsulta=consulta.executeQuery();
+                    if(ResultadoConsulta.next())
+                    {
+                    consecutivo=ResultadoConsulta.getInt("consecutivo");
+                    consecutivo++;//aumento en 1 ya que debe aumentar en 1 el que lee de la bd
+                    }else{
+                        consecutivo=1;
+                    }
+
+                } catch(SQLException ex)
+                {
+                    JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de salida de documento.\n Ventana Consecutivo del Documento \n Contacte al Desarrollador \n "+ex ,  "ADVERTENCIA GRAVE", JOptionPane.WARNING_MESSAGE);
+                }
+          }///realiza el calculo de si la variable consecutivo vale 0 es decir si no es una modificacion
+                    //ya que al ser modificacion el consecutivo debera conservarse
         try
     {
         conectar.Conectar();
@@ -77,9 +80,10 @@ public class ConexionCrearSalida {
         consulta.setInt(3, cantidad);
         consulta.setInt(4, concepto_salida);
         consulta.setInt(5, seccion);
-        consulta.setDouble(6, total_operacion);
-        consulta.setInt(7, 1);
-        consulta.setInt(8, consecutivo);
+        consulta.setInt(6, consecutivo);
+        consulta.setDouble(7, total_operacion);
+        consulta.setInt(8, 1);
+        
         ejecutar=consulta.executeUpdate();
         if( ejecutar> 0 )
         {

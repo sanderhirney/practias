@@ -38,7 +38,7 @@ private final static Logger Log = Logger.getLogger("Inventario");
         Log.log(Level.INFO, "Ingreso Satisfactorio");
         consolaErrores.close();
         archivo.close();
-        
+     
                     
         }catch(IOException | SecurityException e)
         {

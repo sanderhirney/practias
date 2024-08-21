@@ -204,10 +204,10 @@ public class ConexionOperacionesEntrada {
      
     
     
-      public void setCodigo(List<Integer> recibido)
-      {
-          codigo=recibido;
-      }
+    public void setCodigo(List<Integer> recibido)
+    {
+        codigo=recibido;
+    }
     public List<Double> obtenerPrecio()
     {
         return precio;

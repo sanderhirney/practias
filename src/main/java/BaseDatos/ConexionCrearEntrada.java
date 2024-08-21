@@ -8,6 +8,7 @@ import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.Month;
+import java.time.Year;
 import java.util.ArrayList;
 import java.util.List;
 import javax.swing.JOptionPane;
@@ -94,14 +95,17 @@ public class ConexionCrearEntrada {
           
            Month mesOperacion =(LocalDate.now().getMonth());
            int mesDeCreacionDocumento=mesOperacion.getValue();
+           int anioCreacionDocumento=(LocalDate.now().getYear());
         try
     {
         
         conectar.Conectar();
         conex= conectar.getConexion();
-        consulta= conex.prepareStatement("select max(consecutivo) as consecutivo from doc_entradas where extract(month from fecha_operacion)=? and concepto_entrada=?");
+        consulta= conex.prepareStatement("select max(consecutivo) as consecutivo from doc_entradas where extract(month from fecha_operacion)=? and extract(year from fecha_operacion)=? and seccion=? and concepto_entrada=?");
         consulta.setInt(1, mesDeCreacionDocumento);
-        consulta.setInt(2, concepto_entrada);
+        consulta.setInt(2, anioCreacionDocumento);
+        consulta.setInt(3, seccion);
+        consulta.setInt(4, concepto_entrada);
         ResultadoConsulta=consulta.executeQuery();
         if(ResultadoConsulta.next())
         {
