@@ -54,7 +54,6 @@ public class DatosdeGenerarF157 implements JRDataSource{
         fechaDocumento=reporte.getFecha();
         codigoConcepto=reporte.getCodigosConceptos();
         descripcionConcepto=reporte.getDescripcionConcepto();
-       
         seccionActiva.consulta();
         codigoSeccion=seccionActiva.codigo();
         decimales.setSeccion(codigoSeccion);
@@ -65,7 +64,7 @@ public class DatosdeGenerarF157 implements JRDataSource{
         hasta=reporte.getHasta();
         ingresosBolivares=reporte.getIngresosBsMes();
         egresosBolivares=reporte.getEgresosBsMes();
-        
+        calculosTotales();
     }
        
     @Override
@@ -93,15 +92,11 @@ public class DatosdeGenerarF157 implements JRDataSource{
             break;
             case "EgresoBolivares" : valor=egresosBolivares.get(index);
             break;
-           // case "IngresosTotal" : valor=totalIngresos;
-            case "IngresosTotal":valor=0.0;
+            case "IngresosTotal" : valor=totalIngresos;
             break;
-           // case "EgresosTotal" : valor=totalEgresos;
-            case "EgresosTotal":valor=0.0;
+           case "EgresosTotal" : valor=totalEgresos;
             break;
-            
-
-                       
+                                               
         }
        
         return valor;
@@ -145,4 +140,13 @@ public class DatosdeGenerarF157 implements JRDataSource{
         return calculoTotalFinal;
     }
     */
+    private void calculosTotales() {
+         for(int i=0; i<codigoConcepto.size(); i++)
+            {
+                totalIngresos+=ingresosBolivares.get(i);
+                totalEgresos+=egresosBolivares.get(i);
+                
+            }
+    }
+            
 }
