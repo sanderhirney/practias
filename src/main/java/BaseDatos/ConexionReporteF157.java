@@ -27,7 +27,10 @@ public class ConexionReporteF157 {
     List<String> tipoConceptos=new ArrayList<>();
     List<Integer> consecutivoDesde=new ArrayList<>();
     List<Integer> consecutivoHasta=new ArrayList<>();
-    
+    double ingresosAnteriores;
+    double egresosAnteriores;
+    double existenciaAnterior;
+   
     int seccion;
     int mesInicio;
     int mesFin;
@@ -54,6 +57,25 @@ public class ConexionReporteF157 {
                                 and secciones=?
                                 and concepto_salidas=?
                                 """;
+    
+    String consultaIngresosAnteriores="""
+                              select SUM(valor_operacion) as ingresosAnteriores
+                              	    from doc_entradas where
+                                    extract(month from fecha_documento)>=1 and
+                              	    extract(month from fecha_documento)<=? and
+                              	    extract (year from fecha_documento)=?
+                                    and seccion=?
+                                    and concepto_entrada=?
+                              """;
+    String consultaEgresosAnteriores="""
+                             select SUM(valor_operacion) as egresosAnteriores
+                             	    from doc_salidas where
+                                    extract(month from fecha_documento)>=1 and
+                             	    extract(month from fecha_documento)<=? and
+                             	    extract (year from fecha_documento)=?
+                                    and secciones=?
+                                    and concepto_salidas=?
+                             """;
     private void consultaCodigoGrupos(){ 
                         try
                   {
@@ -209,6 +231,59 @@ public class ConexionReporteF157 {
              }
      }
     }
+     private void consultarIngresosEgresosAnteriores(){
+         for(int i=0; i<codigoConceptos.size(); i++){
+             if(tipoConceptos.get(i).equals("E"))
+             {              
+                     try{
+                       conectar.Conectar();
+                       conex= conectar.getConexion();
+                       consulta= conex.prepareStatement(consultaIngresosAnteriores);
+                       consulta.setInt(1, (mesFin-1));
+                       consulta.setInt(2, anio);
+                       consulta.setInt(3, seccion);
+                       consulta.setInt(4, codigoConceptos.get(i));
+                        ejecutar=consulta.executeQuery();
+                       while(ejecutar.next()){
+                         ingresosAnteriores+=ejecutar.getDouble("ingresosAnteriores");
+                       }
+
+                       conectar.Cerrar();
+                     }
+                   catch(SQLException e){
+                       JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta Ingresos en Bs.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                       }
+             }
+             if(tipoConceptos.get(i).equals("S"))
+             {              
+                 try{
+                       conectar.Conectar();
+                       conex= conectar.getConexion();
+                       consulta= conex.prepareStatement(consultaEgresosAnteriores);
+                       consulta.setInt(1, (mesFin-1));
+                       consulta.setInt(2, anio);
+                       consulta.setInt(3, seccion);
+                       consulta.setInt(4, codigoConceptos.get(i));
+                       ejecutar=consulta.executeQuery();
+                       while(ejecutar.next()){
+                          egresosAnteriores+=ejecutar.getDouble("egresosAnteriores");
+                          
+                       }
+
+                       conectar.Cerrar();
+                     }
+                   catch(SQLException e){
+                       JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Reporte de Consulta Egresos en Bs.\n Ventana Crear Reporte Salidas Historial \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+                       }
+             }
+     }
+     }
+     private void calculoExistenciaAnterior(){
+         existenciaAnterior=ingresosAnteriores-egresosAnteriores;
+         if(existenciaAnterior<0){
+             existenciaAnterior*=-1;//ya que si solo hubieron salidas puede dar negativo
+         }
+     }
     
     public void consultas(){
       
@@ -216,6 +291,7 @@ public class ConexionReporteF157 {
         consultaCodigoGrupos();
         consultaDescripcionGrupos();
         consultarIngresosEgresosMes();
+        consultarIngresosEgresosAnteriores();
         
     }
     public List<Integer> getDesde()
@@ -227,13 +303,16 @@ public class ConexionReporteF157 {
         return consecutivoHasta;
     }
     public List<Double> getIngresosBsMes(){
-        ingresosBs.forEach(System.out::println);
+        
         return ingresosBs;
     }
      public List<Double> getEgresosBsMes(){
-         egresosBs.forEach(System.out::println);
+         
         return egresosBs;
     }
+     public Double getExistenciasAnteriores(){
+         return existenciaAnterior;
+     }
     
     public List<Integer> getGrupo()
     {

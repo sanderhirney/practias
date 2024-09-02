@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.21.3-4a3078d20785ebe464f18037d738d12fc98c13cf  -->
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.20.6  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="f157" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="66519d71-4f27-4833-9a1d-c9b72e811f0c">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
@@ -314,6 +314,34 @@
 					<font size="8"/>
 				</textElement>
 				<textFieldExpression><![CDATA[$F{EgresosTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="160" y="40" width="100" height="11" uuid="5bb1230b-ccc5-4b40-bd69-b626b2919380"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{IngresosTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="332" y="39" width="78" height="13" uuid="95eb6c72-6b80-46be-bfaf-545a6a0e9295"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{EgresosTotal}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="30" y="41" width="130" height="14" uuid="1a74313e-a82e-496c-88f2-2f4347787f5c"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ExistenciaAnterior}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="590" y="41" width="158" height="14" uuid="1c41b457-10ee-47bf-a6d6-cbbc1088156b"/>
+				<textElement>
+					<font size="8"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ExistenciaFinal}]]></textFieldExpression>
 			</textField>
 		</band>
 	</pageFooter>

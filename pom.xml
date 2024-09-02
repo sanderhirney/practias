@@ -25,12 +25,19 @@
                     <artifactId>postgresql</artifactId>
                     <version>42.7.3</version>
                 </dependency>
-               <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+               <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports 
                 <dependency>
                     <groupId>net.sf.jasperreports</groupId>
                     <artifactId>jasperreports</artifactId>
                     <version>6.20.5</version>
+                </dependency> -->
+                <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
+                <dependency>
+                    <groupId>net.sf.jasperreports</groupId>
+                    <artifactId>jasperreports</artifactId>
+                    <version>6.21.3</version>
                 </dependency>
+
 
                 <!-- https://mvnrepository.com/artifact/org.apache.poi/poi-scratchpad -->
                 <dependency>

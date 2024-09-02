@@ -42,7 +42,8 @@ public class DatosdeGenerarF157 implements JRDataSource{
        
         Double totalIngresos=0.0;
         Double totalEgresos=0.0;
-        
+        Double existenciaAnterior=0.0;
+        Double existenciaFinal=0.0;
         ConexionReporteF157 reporte=new ConexionReporteF157();
         ConexionConsultarDecimales decimales=new ConexionConsultarDecimales();
         ConexionVerSeccionActiva seccionActiva=new ConexionVerSeccionActiva();
@@ -64,6 +65,7 @@ public class DatosdeGenerarF157 implements JRDataSource{
         hasta=reporte.getHasta();
         ingresosBolivares=reporte.getIngresosBsMes();
         egresosBolivares=reporte.getEgresosBsMes();
+        existenciaAnterior=reporte.getExistenciasAnteriores();
         calculosTotales();
     }
        
@@ -95,6 +97,10 @@ public class DatosdeGenerarF157 implements JRDataSource{
             case "IngresosTotal" : valor=totalIngresos;
             break;
            case "EgresosTotal" : valor=totalEgresos;
+            break;
+            case "ExistenciaAnterior":valor=existenciaAnterior;
+            break;
+            case "ExistenciaFinal": valor=existenciaFinal;
             break;
                                                
         }
@@ -147,6 +153,8 @@ public class DatosdeGenerarF157 implements JRDataSource{
                 totalEgresos+=egresosBolivares.get(i);
                 
             }
+         existenciaFinal=(existenciaAnterior+totalIngresos)-totalEgresos;
+         
     }
             
 }

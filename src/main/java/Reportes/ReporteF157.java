@@ -26,7 +26,7 @@ public class ReporteF157 {
        
         try {
             URL url=(this.getClass().getResource("/f15-7.jasper"));
-            File fichero=new File(url.getFile());
+             File fichero=new File(url.getFile());
             JasperReport reporte = (JasperReport) JRLoader.loadObject(fichero);
             JasperPrint jprint = JasperFillManager.fillReport(reporte, null, DatosdeGenerarF157.getDataSource());
             JasperViewer view = new JasperViewer(jprint, false);
