@@ -217,12 +217,12 @@ Iterator lista7;
     private void Campo_buscarKeyPressed(java.awt.event.KeyEvent evt) {//GEN-FIRST:event_Campo_buscarKeyPressed
         // TODO add your handling code here:
         Tabla_articulos.setRowSorter(filtro);
-        filtro.setRowFilter(RowFilter.regexFilter(Campo_buscar.getText(), 0));
+        filtro.setRowFilter(RowFilter.regexFilter(Campo_buscar.getText().trim(), 1));
     }//GEN-LAST:event_Campo_buscarKeyPressed
 
     private void Boton_procesarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_procesarActionPerformed
         // TODO add your handling code here:
-        
+        modelo2.setRowCount(0);
         nombre_seleccion=(Tabla_articulos.getValueAt(Tabla_articulos.getSelectedRow(), 1).toString());
         codigo_seleccion=(Tabla_articulos.getValueAt(Tabla_articulos.getSelectedRow(), 0).toString());
         ConexionReporteKardex kardex =new ConexionReporteKardex();
