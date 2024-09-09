@@ -284,6 +284,19 @@ public class ConexionReporteF157 {
              existenciaAnterior*=-1;//ya que si solo hubieron salidas puede dar negativo
          }
      }
+     private void borrarDatosDeReporte(){
+         try{
+            conectar.Conectar();
+            conex= conectar.getConexion();
+            consulta= conex.prepareStatement("delete from datosreportes");
+            consulta.executeUpdate();
+                     
+            conectar.Cerrar();
+        }
+        catch(SQLException e){
+            JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de limpiar Datos del reporte en base de datos.\n Ventana Limpiar datos de reporte \n Contacte al Desarrollador \n "+e ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+        }
+     }
     
     public void consultas(){
       
@@ -292,6 +305,8 @@ public class ConexionReporteF157 {
         consultaDescripcionGrupos();
         consultarIngresosEgresosMes();
         consultarIngresosEgresosAnteriores();
+        calculoExistenciaAnterior();
+        borrarDatosDeReporte();
         
     }
     public List<Integer> getDesde()
