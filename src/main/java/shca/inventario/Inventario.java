@@ -16,11 +16,12 @@ import javax.swing.JOptionPane;
 
 public class Inventario {
 private final static Logger Log = Logger.getLogger("Inventario");
-    public static void main(String[] args) {
-        
-        
-        try
+  
+public static void main(String[] args) {
+               try
         { 
+            
+            
          SimpleFormatter Formato = new SimpleFormatter();
         Handler consolaErrores=new ConsoleHandler();
         Handler archivo=new FileHandler("log.txt");
@@ -30,10 +31,12 @@ private final static Logger Log = Logger.getLogger("Inventario");
         archivo.setFormatter(Formato);
         Log.addHandler(consolaErrores);
         Log.addHandler(archivo);
-        Ventana_Principal ventana = new Ventana_Principal();
+        /*Ventana_Principal ventana = new Ventana_Principal();
         ventana.setLocationRelativeTo(null);
         ventana.setResizable(false);
-        ventana.setVisible(true);
+        ventana.setVisible(true);*/
+        PuntoDeEntrada.getInicio();
+        
         Log.log(Level.ALL, "Bitacora: ");
         Log.log(Level.INFO, "Ingreso Satisfactorio");
         consolaErrores.close();

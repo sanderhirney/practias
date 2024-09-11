@@ -10,10 +10,7 @@ import javax.swing.tree.DefaultMutableTreeNode;
 
        
 public class Ventana_Principal extends javax.swing.JFrame {
-
-    
    
-    
     String nombre;//nombre tomado al iniciar el programa
     ConexionEmpresas consulta_empresas=new ConexionEmpresas();
     public Dimension resolucion;//variable para leer el ancho y alto de la ventana
@@ -22,8 +19,6 @@ public class Ventana_Principal extends javax.swing.JFrame {
       
     
     public Ventana_Principal() {
-       
-
         this.getContentPane().setBackground(Color.WHITE);//color de fondo
         initComponents();
         resolucion=super.getToolkit().getScreenSize();
