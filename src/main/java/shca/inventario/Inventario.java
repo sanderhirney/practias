@@ -1,5 +1,6 @@
 package shca.inventario;
 
+import BaseDatos.ConexionControlDeInicio;
 import inventario.Ventana_Principal;
 import java.io.File;
 import java.io.IOException;
@@ -14,15 +15,35 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import java.util.logging.SimpleFormatter;
 import javax.swing.JOptionPane;
+import static javax.swing.WindowConstants.DO_NOTHING_ON_CLOSE;
 
 public class Inventario {
+    
 private final static Logger Log = Logger.getLogger("Inventario");
-private static ServerSocket socket;
 public static void main(String[] args) {
+    int estadoDeInicio=0;
                try
         { 
-            
-            socket=new ServerSocket(3672);
+            ConexionControlDeInicio inicio=new ConexionControlDeInicio();
+            inicio.consulta();
+            estadoDeInicio=inicio.getControl();
+            if(estadoDeInicio==0){
+                inicio.abrir();
+                if(inicio.getResultado()==1){
+                        Ventana_Principal ventana = new Ventana_Principal();
+                        ventana.setLocationRelativeTo(null);
+                        ventana.setResizable(false);
+                        ventana.setDefaultCloseOperation(DO_NOTHING_ON_CLOSE);
+                        ventana.setVisible(true);
+                }
+                if(inicio.getResultado()==0){
+                    JOptionPane.showMessageDialog(null, "No se pudo actualizar el estado de apertura de la apliacion", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+            }
+            if(estadoDeInicio==1){
+                    JOptionPane.showMessageDialog(null, "La aplicacion ya esta abierta. Solo puede ejecutar una instancia a la vez", "Error", JOptionPane.ERROR_MESSAGE);
+                }
+           
          SimpleFormatter Formato = new SimpleFormatter();
         Handler consolaErrores=new ConsoleHandler();
         Handler archivo=new FileHandler("log.txt");
@@ -32,10 +53,7 @@ public static void main(String[] args) {
         archivo.setFormatter(Formato);
         Log.addHandler(consolaErrores);
         Log.addHandler(archivo);
-        Ventana_Principal ventana = new Ventana_Principal();
-        ventana.setLocationRelativeTo(null);
-        ventana.setResizable(false);
-        ventana.setVisible(true);
+        
       
         
         Log.log(Level.ALL, "Bitacora: ");
@@ -46,7 +64,9 @@ public static void main(String[] args) {
                     
         }catch(IOException | SecurityException e)
         {
-           JOptionPane.showMessageDialog(null, "Ya esta el sistema abierto"+"\nSe ha producido un error al cargar los archvios de arranque" + "\n Verifique que los archivos de LOG y del sistema esten ubicados apropiadamente"+ e, "Error", JOptionPane.ERROR_MESSAGE);
+           JOptionPane.showMessageDialog(null, """
+                                               Se ha producido un error al cargar los archvios de arranque
+                                               Verifique que los archivos de LOG y del sistema esten ubicados apropiadamente"""+ e, "Error", JOptionPane.ERROR_MESSAGE);
             
         }
 

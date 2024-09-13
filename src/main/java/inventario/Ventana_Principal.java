@@ -1,5 +1,6 @@
 package inventario;
 
+import BaseDatos.ConexionControlDeInicio;
 import BaseDatos.ConexionEmpresas;
 import java.awt.Color;
 import java.awt.Dimension;
@@ -185,6 +186,8 @@ public class Ventana_Principal extends javax.swing.JFrame {
         //opcion 0= Si, 1=No
          if (opcion==0)
          {
+             ConexionControlDeInicio inicio=new ConexionControlDeInicio();
+             inicio.cerar();
              System.exit(0);
          }//if
                  
