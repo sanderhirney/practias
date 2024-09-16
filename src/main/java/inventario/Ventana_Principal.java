@@ -15,7 +15,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
     String nombre;//nombre tomado al iniciar el programa
     ConexionEmpresas consulta_empresas=new ConexionEmpresas();
     public Dimension resolucion;//variable para leer el ancho y alto de la ventana
- 
+    ConexionControlDeInicio inicio=new ConexionControlDeInicio();
   
       
     
@@ -30,7 +30,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
        if(nombre==null)
         {
             JOptionPane.showMessageDialog(null, "No se pudo Obtener la informacion de la Seccion en cual trabajar.\n Ventana Principal \n Contacte al Desarrollador \n " ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
-           System.exit(0);
+            System.exit(0);
         }
         else
         {
@@ -186,7 +186,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
         //opcion 0= Si, 1=No
          if (opcion==0)
          {
-             ConexionControlDeInicio inicio=new ConexionControlDeInicio();
+            
              inicio.cerar();
              System.exit(0);
          }//if
@@ -197,6 +197,7 @@ public class Ventana_Principal extends javax.swing.JFrame {
         // TODO add your handling code here:
        if (evt.getClickCount() == 2)
        {
+           
         try
         {
           

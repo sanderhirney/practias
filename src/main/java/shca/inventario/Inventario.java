@@ -22,6 +22,7 @@ public class Inventario {
 private final static Logger Log = Logger.getLogger("Inventario");
 public static void main(String[] args) {
     int estadoDeInicio=0;
+    
                try
         { 
             ConexionControlDeInicio inicio=new ConexionControlDeInicio();
@@ -41,8 +42,15 @@ public static void main(String[] args) {
                 }
             }
             if(estadoDeInicio==1){
-                    JOptionPane.showMessageDialog(null, "La aplicacion ya esta abierta. Solo puede ejecutar una instancia a la vez", "Error", JOptionPane.ERROR_MESSAGE);
-                }
+                  //  JOptionPane.showMessageDialog(null, "La aplicacion ya esta abierta. Solo puede ejecutar una instancia a la vez", "Error", JOptionPane.ERROR_MESSAGE);
+                        int opcion= JOptionPane.showConfirmDialog(null," Se detecta la aplicacion abierta. ¿forzar cierre?. \n¡No se conservara nada que no haya guardado! \n si presiona 'SI' se recomienda reinicar el sistema ", "Confirmacion de Cancelar", JOptionPane.YES_NO_OPTION, JOptionPane.WARNING_MESSAGE);
+                        //opcion 0= Si, 1=No
+                         if (opcion==0)
+                         {
+                            inicio.cerar();
+                            System.exit(0);
+                         }//if
+            }
            
          SimpleFormatter Formato = new SimpleFormatter();
         Handler consolaErrores=new ConsoleHandler();
