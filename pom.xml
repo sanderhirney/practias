@@ -11,6 +11,34 @@
         <maven.compiler.target>17</maven.compiler.target>
         <exec.mainClass>shca.inventario.Inventario</exec.mainClass>
     </properties>
+    <build>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-assembly-plugin</artifactId>
+                <executions>
+                    <execution>
+                        <phase>package</phase>
+                        <goals>
+                            <goal>single</goal>
+                        </goals>
+                        <configuration>
+                            <archive>
+                            <manifest>
+                                <mainClass>
+                                    shca.inventario.Inventario
+                                </mainClass>
+                            </manifest>
+                            </archive>
+                            <descriptorRefs>
+                                <descriptorRef>jar-with-dependencies</descriptorRef>
+                            </descriptorRefs>
+                        </configuration>
+                      </execution>
+                    </executions>
+             </plugin>
+        </plugins>
+    </build>
     <dependencies>
         <!-- https://mvnrepository.com/artifact/com.toedter/jcalendar -->
                 <dependency>
@@ -25,12 +53,15 @@
                     <artifactId>postgresql</artifactId>
                     <version>42.7.3</version>
                 </dependency>
-               <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports 
-                <dependency>
-                    <groupId>net.sf.jasperreports</groupId>
-                    <artifactId>jasperreports</artifactId>
-                    <version>6.20.5</version>
-                </dependency> -->
+               <!-- https://mvnrepository.com/artifact/org.apache.maven.plugin-tools/maven-plugin-annotations -->
+                    <dependency>
+                        <groupId>org.apache.maven.plugin-tools</groupId>
+                        <artifactId>maven-plugin-annotations</artifactId>
+                        <version>3.13.0</version>
+                        <scope>provided</scope>
+                    </dependency>
+
+                
                 <!-- https://mvnrepository.com/artifact/net.sf.jasperreports/jasperreports -->
                 <dependency>
                     <groupId>net.sf.jasperreports</groupId>

@@ -2,6 +2,7 @@
 package Reportes;
 
 import java.io.File;
+import java.io.InputStream;
 import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -20,14 +21,13 @@ public class ReporteF157 {
     
     public void llamarReporte(){
         
-        
-        
-      
-       
+          
+             
         try {
-            URL url=(this.getClass().getResource("/f15-7.jasper"));
-             File fichero=new File(url.getFile());
-            JasperReport reporte = (JasperReport) JRLoader.loadObject(fichero);
+            
+            InputStream report = ReporteF157.class.getResourceAsStream("/f15-7.jasper");
+            
+            JasperReport reporte = (JasperReport) JRLoader.loadObject(report);
             JasperPrint jprint = JasperFillManager.fillReport(reporte, null, DatosdeGenerarF157.getDataSource());
             JasperViewer view = new JasperViewer(jprint, false);
             view.setTitle("F 15 -7 ");
