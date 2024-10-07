@@ -39,6 +39,7 @@ public class DatosdeGenerarEntrada implements JRDataSource{
         String descripcionConcepto;
         int codigoConcepto;
         int consecutivo=0;
+        
         ConexionReporteEntradas reporte=new ConexionReporteEntradas();
         ConexionConsultarDecimales decimales=new ConexionConsultarDecimales();
         ConexionVerSeccionActiva seccionActiva=new ConexionVerSeccionActiva();
@@ -105,7 +106,8 @@ public class DatosdeGenerarEntrada implements JRDataSource{
             break;
             case "numeroComprobante" : valor=consecutivo;
             break;
-
+            case "TotalEntrada" : valor=decimalesTotalEntrada();
+            break;
                        
         }
        
@@ -148,6 +150,26 @@ public class DatosdeGenerarEntrada implements JRDataSource{
             calculoTotalFinal=(formatoPrecioUnitario.format(temporal).replace(',','.'));
         
         return calculoTotalFinal;
+    }
+    private String decimalesTotalEntrada(){
+        String calculoTotalEntrada;
+        String mascaraCalculoTotal="#.";//para la mascara
+        Double temporal;
+        Double total=0.0;
+            for(int i=0; i<precioUnitario.size(); i++){
+                temporal=precioUnitario.get(i)*cantidad.get(i);
+                total+=temporal;
+            }
+            
+            for(int i=0; i<decimalesCalculoTotal; i++)
+            {
+                mascaraCalculoTotal=mascaraCalculoTotal+("0");
+                
+            }
+            DecimalFormat formatoTotalEntrada=new DecimalFormat(mascaraCalculoTotal);
+            calculoTotalEntrada=(formatoTotalEntrada.format(total).replace(',','.'));
+        
+        return calculoTotalEntrada;
     }
     
 }

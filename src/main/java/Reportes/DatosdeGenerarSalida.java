@@ -102,6 +102,8 @@ public class DatosdeGenerarSalida implements JRDataSource{
             break;
             case "numeroComprobante" : valor=consecutivo;
             break;
+            case "TotalSalida" : valor=decimalesTotalSalida();
+            break;
 
                        
         }
@@ -145,6 +147,26 @@ public class DatosdeGenerarSalida implements JRDataSource{
             calculoTotalFinal=(formatoPrecioUnitario.format(temporal).replace(',','.'));
         
         return calculoTotalFinal;
+    }
+    private String decimalesTotalSalida(){
+        String calculoTotalSalida;
+        String mascaraCalculoTotal="#.";//para la mascara
+        Double temporal;
+        Double total=0.0;
+            for(int i=0; i<precioUnitario.size(); i++){
+                temporal=precioUnitario.get(i)*cantidad.get(i);
+                total+=temporal;
+            }
+            
+            for(int i=0; i<decimalesCalculoTotal; i++)
+            {
+                mascaraCalculoTotal=mascaraCalculoTotal+("0");
+                
+            }
+            DecimalFormat formatoTotalSalida=new DecimalFormat(mascaraCalculoTotal);
+            calculoTotalSalida=(formatoTotalSalida.format(total).replace(',','.'));
+        
+        return calculoTotalSalida;
     }
     
 }

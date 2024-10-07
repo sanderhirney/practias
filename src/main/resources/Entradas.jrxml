@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!-- Created with Jaspersoft Studio version 6.20.5.final using JasperReports Library version 6.20.5-3efcf2e67f959db3888d79f73dde2dbd7acb4f8e  -->
+<!-- Created with Jaspersoft Studio version 6.21.3.final using JasperReports Library version 6.20.6  -->
 <jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="Coffee_Landscape_Table_Based" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="66519d71-4f27-4833-9a1d-c9b72e811f0c">
 	<property name="template.engine" value="tabular_template"/>
 	<property name="com.jaspersoft.studio.data.defaultdataadapter" value="One Empty Record"/>
@@ -41,6 +41,7 @@
 	<field name="codigoConcepto" class="java.lang.Integer"/>
 	<field name="Concepto" class="java.lang.String"/>
 	<field name="numeroComprobante" class="java.lang.Integer"/>
+	<field name="TotalEntrada" class="java.lang.String"/>
 	<title>
 		<band height="146" splitType="Stretch">
 			<staticText>
@@ -260,31 +261,59 @@ Medida]]></text>
 				<reportElement style="Detail" mode="Opaque" x="20" y="0" width="772" height="18" forecolor="#030303" uuid="3404d223-90b8-4cd7-aa03-7162b573a9d1"/>
 				<textField>
 					<reportElement x="81" y="3" width="348" height="12" uuid="977f1bfc-7b85-4400-9317-4e1ae47859fd"/>
+					<textElement textAlignment="Center"/>
 					<textFieldExpression><![CDATA[$F{Descripcion}]]></textFieldExpression>
 				</textField>
 				<textField isBlankWhenNull="false">
-					<reportElement x="19" y="3" width="56" height="12" uuid="fcb6ab7a-1939-4af7-9647-ad38d96d3d57"/>
+					<reportElement x="4" y="3" width="56" height="12" uuid="fcb6ab7a-1939-4af7-9647-ad38d96d3d57"/>
+					<textElement textAlignment="Center"/>
 					<textFieldExpression><![CDATA[$F{Codigos}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="439" y="3" width="50" height="12" uuid="e3c1f507-5aa0-4229-a3b2-16bf17f08618"/>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$F{Medida}]]></textFieldExpression>
 				</textField>
 				<textField>
 					<reportElement x="490" y="2" width="60" height="13" uuid="e1fa424c-6799-4974-8d2d-741c87aac7aa"/>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$F{Cantidad}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="552" y="2" width="113" height="13" uuid="fd38047f-67f2-4ab7-ab13-6b2cceaf58be"/>
+					<reportElement style="Row" x="552" y="2" width="113" height="13" uuid="fd38047f-67f2-4ab7-ab13-6b2cceaf58be"/>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$F{ValorUnitario}]]></textFieldExpression>
 				</textField>
 				<textField>
-					<reportElement x="665" y="2" width="105" height="13" uuid="fe7a063b-58d4-4849-984e-5c003f4d9750"/>
+					<reportElement style="Table" x="665" y="2" width="105" height="13" uuid="fe7a063b-58d4-4849-984e-5c003f4d9750"/>
+					<box>
+						<topPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<leftPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<bottomPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+						<rightPen lineWidth="0.0" lineStyle="Solid" lineColor="#000000"/>
+					</box>
+					<textElement textAlignment="Right"/>
 					<textFieldExpression><![CDATA[$F{ValorTotal}]]></textFieldExpression>
 				</textField>
 			</frame>
 		</band>
 	</detail>
+	<columnFooter>
+		<band height="29">
+			<staticText>
+				<reportElement x="610" y="4" width="78" height="20" uuid="f376d25e-5fa2-40db-8f69-cc46e396a463"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="9"/>
+				</textElement>
+				<text><![CDATA[Total:]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="692" y="4" width="100" height="20" uuid="f43133a5-8668-4f7e-805b-f3cdd8c1b6f1"/>
+				<textElement textAlignment="Right"/>
+				<textFieldExpression><![CDATA[$F{TotalEntrada}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnFooter>
 	<pageFooter>
 		<band height="128" splitType="Stretch">
 			<property name="com.jaspersoft.studio.unit.height" value="px"/>
