@@ -34,7 +34,7 @@ public class ReporteSalida {
             JasperViewer view = new JasperViewer(jprint, false);
             view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
             view.setAlwaysOnTop(true);
-            view.setVisible(true);
+            view.setVisible(false);
              } catch (JRException ex) {
             Logger.getLogger(ReporteSalida.class.getName()).log(Level.SEVERE, "Mensaje de log", ex);
             JOptionPane.showMessageDialog(null, "Se ha producido un error al cargar el reporte" + "\n" + ex , "Error", JOptionPane.ERROR_MESSAGE);

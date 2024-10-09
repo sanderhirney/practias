@@ -34,7 +34,7 @@ public class ReporteEntrada {
             JasperViewer view = new JasperViewer(jprint, false);
             view.setTitle("Entrada");
             view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            view.setAlwaysOnTop(true);
+            view.setAlwaysOnTop(false);
           
             view.setVisible(true);
              } catch (JRException ex) {

@@ -32,7 +32,7 @@ public class ReporteF157 {
             JasperViewer view = new JasperViewer(jprint, false);
             view.setTitle("F 15 -7 ");
             view.setDefaultCloseOperation(WindowConstants.DISPOSE_ON_CLOSE);
-            view.setAlwaysOnTop(true);
+            view.setAlwaysOnTop(false);
           
             view.setVisible(true);
              } catch (JRException ex) {
