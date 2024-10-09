@@ -44,6 +44,7 @@ public class DatosdeGenerarF157 implements JRDataSource{
         Double totalEgresos=0.0;
         Double existenciaAnterior=0.0;
         Double existenciaFinal=0.0;
+        Double existenciaAnteriorDecimales=0.0;
         ConexionReporteF157 reporte=new ConexionReporteF157();
         ConexionConsultarDecimales decimales=new ConexionConsultarDecimales();
         ConexionVerSeccionActiva seccionActiva=new ConexionVerSeccionActiva();
@@ -90,9 +91,9 @@ public class DatosdeGenerarF157 implements JRDataSource{
             break;
             case "Hasta" : valor=hasta.get(index);
             break;
-            case "IngresoBolivares": valor=ingresosBolivares.get(index);
+            case "IngresoBolivares": valor=decimalesIngresos(index);
             break;
-            case "EgresoBolivares" : valor=egresosBolivares.get(index);
+            case "EgresoBolivares" : valor=decimalesEgresos(index);
             break;
             case "IngresosTotal" : valor=totalIngresos;
             break;
@@ -113,22 +114,45 @@ public class DatosdeGenerarF157 implements JRDataSource{
     public static JRDataSource getDataSource(){
         return new DatosdeGenerarF157();
     }
-    /*
-    private String decimalesPrecioUnitario(int index){
-        String precioUnitarioFinal;
-        String mascaraPrecioUnitario="#.";//para la mascara
+    
+    private Double decimalesIngresos(int index){
+        String ingresosFinal;
+        double ingresosRetorno;
+        String mascaraDecimalIngresos="#.";//para la mascara
                
             
-            for(int i=0; i<decimalesPrecioUnitario; i++)
+            for(int i=0; i<decimalesCalculoTotal; i++)
             {
-                mascaraPrecioUnitario=mascaraPrecioUnitario+("0");
+                mascaraDecimalIngresos=mascaraDecimalIngresos+("0");
                 
             }
-           DecimalFormat formatoPrecioUnitario=new DecimalFormat(mascaraPrecioUnitario);
-            precioUnitarioFinal=(formatoPrecioUnitario.format(precioUnitario.get(index)).replace(',','.'));
+           DecimalFormat formatoIngresos=new DecimalFormat(mascaraDecimalIngresos);
+            ingresosFinal=(formatoIngresos.format(ingresosBolivares.get(index)).replace(',','.'));
+          
+            ingresosRetorno=Double.parseDouble(ingresosFinal);
+        return ingresosRetorno;
         
-        return precioUnitarioFinal;
     }
+    private Double decimalesEgresos(int index){
+        String egresosFinal;
+        double egresosRetorno;
+        String mascaraDecimalEgresos="#.";//para la mascara
+               
+            
+            for(int i=0; i<decimalesCalculoTotal; i++)
+            {
+                mascaraDecimalEgresos=mascaraDecimalEgresos+("0");
+                
+            }
+           DecimalFormat formatoIngresos=new DecimalFormat(mascaraDecimalEgresos);
+            egresosFinal=(formatoIngresos.format(egresosBolivares.get(index)).replace(',','.'));
+          
+            egresosRetorno=Double.parseDouble(egresosFinal);
+        return egresosRetorno;
+        
+    }
+    
+    /*
     private String decimalesCalculoTotal(int index){
         String calculoTotalFinal;
         String mascaraCalculoTotal="#.";//para la mascara
@@ -147,14 +171,37 @@ public class DatosdeGenerarF157 implements JRDataSource{
     }
     */
     private void calculosTotales() {
+        String ingresos;
+        String egresos;
+        String calculoFinal;
+        String anterior;
+        String mascaraCalculoTotal="#.";//para la mascara
+        Double temporalIngresos=0.0;
+        Double temporalEgresos=0.0;
+        Double temporalFinal=0.0;
          for(int i=0; i<codigoConcepto.size(); i++)
             {
-                totalIngresos+=ingresosBolivares.get(i);
-                totalEgresos+=egresosBolivares.get(i);
+                temporalIngresos+=ingresosBolivares.get(i);
+                temporalEgresos+=egresosBolivares.get(i);
                 
             }
-         existenciaFinal=(existenciaAnterior+totalIngresos)-totalEgresos;
-         
+         temporalFinal=(existenciaAnterior+temporalIngresos)-temporalEgresos;
+       
+        
+            for(int i=0; i<decimalesCalculoTotal; i++)
+            {
+                mascaraCalculoTotal=mascaraCalculoTotal+("0");
+                
+            }
+            DecimalFormat formatoTotales=new DecimalFormat(mascaraCalculoTotal);
+            ingresos=(formatoTotales.format((temporalIngresos)).replace(',','.'));
+            egresos=(formatoTotales.format((temporalEgresos)).replace(',','.'));
+            calculoFinal=(formatoTotales.format(temporalFinal).replace(',','.'));
+            anterior=(formatoTotales.format(existenciaAnterior).replace(',','.'));
+            totalIngresos=Double.valueOf(ingresos);
+            totalEgresos=Double.valueOf(egresos);
+            existenciaFinal=Double.valueOf(calculoFinal);
+            existenciaAnteriorDecimales=Double.valueOf(anterior);
     }
             
 }
