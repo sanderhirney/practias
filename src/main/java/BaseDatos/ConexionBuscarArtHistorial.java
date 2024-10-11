@@ -81,14 +81,13 @@ public class ConexionBuscarArtHistorial {
         {
         consulta= conex.prepareStatement("select nombre from articulos where codigo=?");
         consulta.setInt(1, cod_articulos.get(i));
-        
-        
         ejecutar=consulta.executeQuery();
         while( ejecutar.next() )
         {
            nombre_articulos.add(ejecutar.getString("nombre"));
         }//while
         }
+        conectar.Cerrar();
        
       //for
     }//try

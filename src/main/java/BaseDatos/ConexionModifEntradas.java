@@ -51,6 +51,7 @@ public class ConexionModifEntradas {
         }//while
       
       }//for
+        conectar.Cerrar();
     }//try
            catch(SQLException ex)
     {
@@ -77,6 +78,7 @@ public class ConexionModifEntradas {
         }//while
       
       }//for
+        conectar.Cerrar();
     }//try
            catch(SQLException ex)
     {
@@ -112,6 +114,7 @@ public class ConexionModifEntradas {
                      resultado=1;
                      
         }//while
+        conectar.Cerrar();
         
                 
              }//consulta
@@ -195,7 +198,7 @@ public class ConexionModifEntradas {
                     {
                         resultado=0;
                     }
-                
+                conectar.Cerrar();
              }
              catch(Exception ex)
              {
@@ -228,7 +231,7 @@ public class ConexionModifEntradas {
                     {
                         resultado=0;
                     }
-                
+                conectar.Cerrar();
              }
              catch(Exception ex)
              {
@@ -257,7 +260,7 @@ public class ConexionModifEntradas {
                     {
                         resultado=0;
                     }
-                
+                conectar.Cerrar();
              }
              catch(Exception ex)
              {

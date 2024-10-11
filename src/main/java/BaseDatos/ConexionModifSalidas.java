@@ -312,6 +312,10 @@ public class ConexionModifSalidas {
     {
         return costo_unitario;
     }
+    public List<Double> getCostosTotales()
+    {
+        return costo_unitario;
+    }
     public int getConceptoSalida()
     {
         return cod_concepto;

@@ -72,6 +72,7 @@ public class ConexionGuardarTemporal {
                 consulta.setString(8, documento_entrada);
                 consulta.setInt(9, consecutivo);
                 respuesta=consulta.executeUpdate();
+                conectar.Cerrar();
                }
                      catch(SQLException ex)
                     {
@@ -108,6 +109,7 @@ public class ConexionGuardarTemporal {
                 consulta.setInt(9, consecutivo);
                 
                 respuesta=consulta.executeUpdate();
+                conectar.Cerrar();
                }
                      catch(SQLException ex)
                     {
@@ -151,7 +153,7 @@ public class ConexionGuardarTemporal {
 
                                  //ejecutar=consulta.executeQuery();
 
-
+                             conectar.Cerrar();
                              }//consulta
                                     catch(SQLException ex)
                              {
@@ -183,7 +185,7 @@ public class ConexionGuardarTemporal {
                             }
         
                                 consulta.executeBatch();
-
+                                conectar.Cerrar();
 
                                  //ejecutar=consulta.executeQuery();
 

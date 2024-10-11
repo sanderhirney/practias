@@ -28,10 +28,10 @@ public class ConexionVerProveedores {
         {
                      nombres.add(ejecutar.getString("nombre"));
                      rif.add(ejecutar.getString("rif_proveedor"));
-                     conectar.Cerrar();
+                     
                      
         }//if
-       
+       conectar.Cerrar();
     }//consulta
            catch(SQLException ex)
     {

@@ -71,15 +71,12 @@ public class ConexionCrearEntrada {
         if( consulta!=null )
         {
            resultado=1;
-           conectar.Cerrar();
-         
-          
         }
         if( consulta==null )
         {
             resultado=0;
         }//else
-       
+       conectar.Cerrar();
     }//consulta
            catch(SQLException ex)
     {
@@ -114,16 +111,19 @@ public class ConexionCrearEntrada {
         }else{
             consecutivo=1;
         }
+       
+        conectar.Cerrar();
         
     } catch(SQLException ex)
     {
-        JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de entrada de documento.\n Ventana Consecutivo del Documento \n Contacte al Desarrollador \n "+ex ,  "ADVERTENCIA GRAVE", JOptionPane.WARNING_MESSAGE);
+        JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de lectura del consecutivo.\n Ventana Consecutivo del Documento \n Contacte al Desarrollador \n "+ex ,  "ADVERTENCIA GRAVE", JOptionPane.WARNING_MESSAGE);
     }
    }//realiza el calculo de si la variable consecutivo vale 0 es decir si no es una modificacion
     //ya que al ser modificacion el consecutivo debera conservarse
     try
         {
-      
+        conectar.Conectar();
+        conex=conectar.getConexion();
         consulta= conex.prepareStatement("insert into doc_entradas values (DEFAULT, ?, ?, ?, ?, ?, ?, ?, ?, ?)");
         consulta.setDate(1, fecha_documento);
         consulta.setDate(2, fecha_operacion);
@@ -138,19 +138,17 @@ public class ConexionCrearEntrada {
         if( ejecutar>0 )
         {
            resultado_sig=1;
-           conectar.Cerrar();
-           
-           
+         
         }
         else
         {
             resultado_sig=0;
         }//else
-       
+       conectar.Cerrar();
     }//try
            catch(SQLException ex)
     {
-        JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de entrada de documento.\n Ventana CrearDocumento de Entradas \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "No se pudo procesar la operacion de Entrada de documento.\n Ventana CrearDocumento de Entradas \n Contacte al Desarrollador \n "+ex ,  "ERROR GRAVE", JOptionPane.ERROR_MESSAGE);
     }
     }//consulta
    

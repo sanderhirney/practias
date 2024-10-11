@@ -26,10 +26,9 @@ public class ConexionEmpresas {
         {
                      codigo_empresa=ejecutar.getInt("cod_empresas");
                      nombre_empresa=ejecutar.getString("descripcion");
-                     conectar.Cerrar();
-                     
+                                       
         }//if
-       
+          conectar.Cerrar();
     }//consulta
            catch(SQLException ex)
     {

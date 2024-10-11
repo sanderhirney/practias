@@ -33,7 +33,7 @@ public class ConexionVerSalidas {
       {
         conectar.Conectar();
         conex= conectar.getConexion();
-        consulta= conex.prepareStatement("select fecha_documento, id, num_articulos, concepto_salidas, valor_operacion, servicio from doc_salidas where secciones=?");
+        consulta= conex.prepareStatement("select fecha_documento, id, num_articulos, concepto_salidas, valor_operacion, servicio from doc_salidas where secciones=? and asentado=1");
         consulta.setInt(1, seccion);
         ejecutar=consulta.executeQuery();
         while( ejecutar.next() )

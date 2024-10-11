@@ -33,9 +33,10 @@ public class ConexionVerArticulos {
             
                      nombres.add(ejecutar.getString("nombre"));
                      codigos.add(ejecutar.getInt("codigo"));
-                     conectar.Cerrar();
+                     
                      
         }//if
+        conectar.Cerrar();
        
     }//consulta
            catch(SQLException ex)

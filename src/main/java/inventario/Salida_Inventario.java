@@ -437,7 +437,6 @@ int numero_documento_rec=0;
                                     Combo_Conceptos.setEnabled(true);
                                     Combo_Servicio.setEnabled(true);
                                    
-                                    
                                     //genero el reporte
                                         
                                         ReporteSalida reporte=new ReporteSalida();
@@ -445,6 +444,9 @@ int numero_documento_rec=0;
                                         
                                        
                                }//if temp
+                               else{
+                                   JOptionPane.showMessageDialog(null," Fallo al actualizar los temporales \n Consulte al desarrollador", "Error grave", JOptionPane.ERROR_MESSAGE);
+                               }
                        
                        }//if
                        else
@@ -637,9 +639,12 @@ public void setConsecutivo(int recibido){
 }
     public void llenar_formulario()
 {
+
    for(int i=0; i<cod_articulos_rec.size(); i++)
         {
-        modelo.addRow(new Object[] {cod_articulos_rec.get(i), nombre_articulos_rec.get(i) , cantidad_articulos_rec.get(i),(cantidad_articulos_rec.get(i)*costos_art_rec.get(i))});
+         double temporal= cantidad_articulos_rec.get(i)*costos_art_rec.get(i); 
+            
+        modelo.addRow(new Object[] {cod_articulos_rec.get(i), nombre_articulos_rec.get(i) , cantidad_articulos_rec.get(i), costos_art_rec.get(i), (temporal)});
         }
    
 }

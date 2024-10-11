@@ -46,6 +46,7 @@ public void Cerrar() throws SQLException
     if (conexion!=null)
     {
         conexion.close();
+        System.out.println("Conexion Cerrada Exitosamente");
     }//if
 }//cerrar
     
